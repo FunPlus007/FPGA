@@ -1,0 +1,43 @@
+//todo : exp10 0-9999 bcd counter testbench
+`timescale 1ns/1ns
+module tb_exp10_counter_bcd_top;
+    reg CLK,Load,CLR;
+
+    wire [3:0] thousands;
+    wire [3:0] hundreds;
+    wire [3:0] tens;
+    wire [3:0] ones;
+    wire Cout;
+
+    exp10_counter_bcd_top  inst1(
+        .CLK(CLK),
+        .Load(Load),
+        .CLR(CLR),
+        .thousands(thousands),
+        .hundreds(hundreds),
+        .tens(tens),
+        .ones(ones),
+        .Cout(Cout)
+    );
+
+    //clk
+    always #5 CLK = ~CLK; 
+
+    // init
+    initial begin
+	CLK = 0;
+        Load = 1;
+        CLR = 0;
+	#100;
+	CLR = 1;
+	
+        $display ("BCD Count %d %d %d %d",thousands,hundreds,tens,ones);
+    
+        //$finish;
+
+	end
+
+endmodule
+
+
+

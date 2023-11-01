@@ -1,0 +1,46 @@
+`timescale 1 ns/ 1 ns
+
+module adder_tb();
+
+    reg [3:0] A;
+    reg [3:0] B;
+    reg Ci;
+
+    wire [3:0] Sum;
+    wire Co;
+
+    adder adder_inst1 (
+        .A(A),
+        .B(B),
+        .Ci(Ci),
+        .Sum(Sum),
+        .Co(Co)
+    );
+
+    integer i,j,k;
+
+    initial begin
+         A <= 0;
+    	 B <= 0;
+   	     Ci <= 0;
+	$display("--------------------");
+        $display ("A  B  Cin | Sum Cout");
+
+        for (i = 0 ; i < 16; i = i + 1)begin
+            for (j = 0  ; j < 16; j = j + 1)begin
+                for (k = 0 ; k < 2; k = k + 1)begin 
+                #10;
+                $display("%d %d %d | %d %d",A,B,Ci,Sum,Co);
+		        Ci = Ci + 1;
+                end
+            B = B + 1;
+	        end
+	    A = A + 1;
+        end
+
+    $stop();
+    end
+
+
+
+endmodule

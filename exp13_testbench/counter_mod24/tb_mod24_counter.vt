@@ -1,0 +1,41 @@
+//TODO : mod24 testbench
+`timescale 1ns/1ns
+module tb_mod24_counter;
+    reg clk;
+    reg loadn;
+    reg clrn;
+
+   wire [7:0] D;
+   wire [7:0] Q;
+
+    wire Co;
+
+    exp10_counter inst1(
+        .CLK(clk),
+        .Loadn(loadn),
+        .CLRn(clrn),
+
+        .D(D),
+        .Q(Q),
+        .Co(Co)
+    );
+
+    always #10 clk = ~clk;
+
+    initial begin
+	clk = 0;
+        loadn = 0;
+        clrn = 0;
+        #10; 
+
+        loadn = 1;
+        #10; 
+        clrn = 1;
+        #1000;
+	
+        $monitor("counter = %d , cout = %d ",Q,Co); 
+	$stop();
+        
+    end
+
+endmodule

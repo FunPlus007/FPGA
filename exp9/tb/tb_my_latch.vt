@@ -1,0 +1,68 @@
+//todo : exp9 my_latch testbench
+`timescale 1ns/1ns
+
+module tb_my_latch;
+
+  reg EN;
+  reg D;
+  wire Q;
+  
+  my_latch tb_my_latch_inst1 (
+    .EN(EN),
+    .D(D),
+    .Q(Q)
+  );
+
+
+  reg clk;
+  always begin
+    #5 clk = ~clk; 
+  end
+
+  initial begin
+
+    EN = 0;
+    D = 0;
+
+
+    $display("Test case 1: EN=1, D=0");
+    EN = 1;
+    D = 0;
+    #10;
+    if (Q == 0)
+      $display("Test Passed");
+    else
+      $display("Test Failed");
+    
+    EN = 0;
+    #10;
+    if (Q == 0)
+      $display("Test Passed");
+    else
+      $display("Test Failed");
+
+    $display("Test case 2: EN=1, D=1");
+    EN = 1;
+    D = 1;
+    #10;
+    if (Q == 1)
+      $display("Test Passed");
+    else
+      $display("Test Failed");
+
+    EN = 0;
+    #10;
+    if (Q == 1)
+      $display("Test Passed");
+    else
+      $display("Test Failed");
+
+     $stop();
+  end
+
+
+  always begin
+    #5 clk = ~clk;
+  end
+
+endmodule

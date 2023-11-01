@@ -1,0 +1,64 @@
+
+`timescale 1ns/1ns
+
+module tb_BCDadder;
+    reg [11:0]A;
+    reg [11:0]B;
+    reg Cin;
+
+    wire [11:0]Sum;
+    wire Cout;
+
+    BCDadder_top inst1(
+        .A(A),
+        .B(B),
+        .Cin(Cin),
+
+        .Sum(Sum),
+        .Cout(Cout)
+    );
+    integer i ,j ,k;
+    initial begin
+        A = 0;
+	B = 0;
+        Cin = 0;
+        $display("-------BCD_adder--------");
+        $display("A    B   Cin |  cout Sum");
+
+        for (i = 0 ; i < 10 ; i  = i + 1) begin //hundred
+            for(j = 0 ; j < 10 ; j = j + 1) begin //ten
+                for(k = 0 ; k < 10 ; k = k + 1) begin //one
+		#10;
+		    $display("%d%d%d  %d%d%d    %d| %d%d%d%d",A[11:8],A[7:4],A[3:0],B[11:8],B[7:4],B[3:0],Cin,Cout,Sum[11:8],Sum[7:4],Sum[3:0]);
+                    if(k == 9) begin
+                        A[3:0] = 0;
+                        B[3:0] = 0;
+                    end
+                    else begin
+                        A[3:0] = A[3:0] + 1;
+                        B[3:0] = B[3:0] + 1;
+                    end
+                end
+
+            if(j == 9) begin
+                A[7:4] = 0;
+                B[7:4] = 0;
+            end
+            else begin
+                A[7:4] = A[7:4] + 1;
+                B[7:4] = B[7:4] + 1;
+            end
+        end
+
+        if(i == 9) begin
+                A[11:8] = 0;
+                B[11:8] = 0;
+            end
+            else begin
+                A[11:8] = A[11:8] + 1;
+                B[11:8] = B[11:8] + 1;
+            end
+        end
+    $stop();    
+    end
+endmodule

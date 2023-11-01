@@ -1,0 +1,51 @@
+// todo: exp9 my_dff testbench
+
+`timescale 1ns/1ns
+module tb_my_dff;
+
+    reg clk;
+    reg data;
+    reg set;
+    reg clrn;
+
+    wire Q;
+
+    my_dff tb_my_dff_inst2 (
+        .CLK(clk),
+        .D(data),
+        .SET(set),
+        .CLRn(clrn),
+        .Q(Q)
+    );
+
+    always #5 clk = ~clk;
+
+    initial begin
+    	clk = 0;
+	#5;
+        // Test Case 1: Set
+        data = 0;
+        set = 1;
+        #10;
+        set = 0;
+        $display("Test Case 1: SET, Q = %b", Q);
+
+        // Test Case 2: Clear
+        data = 1;
+        clrn = 0;
+        #10;
+        clrn = 1;
+        $display("Test Case 2: CLRn, Q = %b", Q);
+
+        // Test Case 3: Normal Operation
+        data = 1;
+        clrn = 1;
+        #10;
+        $display("Test Case 3: Normal Operation, Q = %b", Q);
+	$stop();
+
+    end
+
+endmodule
+
+
