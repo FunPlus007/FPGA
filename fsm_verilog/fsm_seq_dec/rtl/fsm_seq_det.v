@@ -1,7 +1,6 @@
 //TODO  FSM sequence detection 10010
 
-// 一段式 
-module fsm_seq_dec (
+module fsm_seq_det (
     input wire data,
     input  wire clk,
     input  wire rst,
@@ -19,6 +18,7 @@ parameter E = 5'b10010;
 reg [4:0] state;
 
 assign ans = (state == E) ? 1:0;
+
 always @(posedge clk or negedge rst) begin
     if(~rst)
         state = IDEL;
@@ -29,7 +29,7 @@ always @(posedge clk or negedge rst) begin
             B : state = (data == 0) ? C : B;
             C : state = (data == 1) ? D : IDEL;
             D : state = (data == 0) ? E : A;
-            E : state = (date == 1) ? A : C;
+            E : state = (data == 1) ? A : C;
             default state = IDEL;
         endcase
     end

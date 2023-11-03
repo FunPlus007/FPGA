@@ -31,6 +31,7 @@ module fsm_counter (
             s3 : state = s4;
             s4 : state = s5;
             s5 : state = s6;
+            s6 : state = s7;
             s7 : state = s8;
             s8 : state = s9;
             default : state = s0;
