@@ -39,7 +39,7 @@ always @(negedge clk_in or negedge rst) begin
         cnt_f <= (cnt_f == cnt_max) ? 0 : (cnt_f + 1'b1);
 end
 
-always @(posedge clk_in or negedge rst) begin
+always @(negedge clk_in or negedge rst) begin
     if(~rst) 
         clk_f <= 0; 
     else 
