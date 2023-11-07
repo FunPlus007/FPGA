@@ -6,7 +6,7 @@ module counter_top(
     input wire rst,
     output wire  [3:0] cnt_10,
     output wire [3:0] cnt_6,
-    output wire cout
+    output reg  cout
 );
 wire cout_1,cout_2;
 
@@ -21,12 +21,23 @@ counter_mod_n #(.cnt_max(4'b0101)) counter_6(
     .clk(cout_1),
     .rst(rst),
     .cnt(cnt_6),
-    .cout(cout_2)
+    //.cout(cout_2)
 );
 
 //cout 输出有bug
 
-assign cout = (cout_2 == 1 && cnt_6 == 4'b0001) ? 1 : 0;
+// always @(posedge clk or negedge rst) begin
+//     if(~rst) 
+//         cout <= 0 ;
+//     else begin
+//         if(cout_2 == 1 ) 
+//             cout = 1; 
+//         else 
+//             cout = 0;
+//     end
+// end
+
+
 
 
 endmodule
